@@ -247,6 +247,25 @@ func SubMatrix(A, B Matrix) Matrix {
 	return AsubB
 }
 
+
+// MultMatrix 矩阵相乘
+func MultMatrix(A, B Matrix) Matrix {
+	if (A.Columns != B.Rows) {
+		panic("goNum.Matrix.Mul: A and B does not matched")
+	}
+	AmulB := ZeroMatrix(A.Rows, B.Columns)
+	for i := 0; i < A.Rows; i++ {
+		for j := 0; j < B.Columns; j++ {
+			buff := 0.
+			for k := 0; k < A.Columns; k++ {
+				buff += A.GetFromMatrix(i, k) * B.GetFromMatrix(k, j)
+			}
+			AmulB.SetMatrix(i, j, buff)
+		}
+	}
+	return AmulB
+}
+
 // NumProductMatrix 矩阵数乘
 func NumProductMatrix(A Matrix, c float64) Matrix {
 	cA := ZeroMatrix(A.Rows, A.Columns)
